@@ -16,7 +16,7 @@
                 and d.name like concat('%', #{name}, '%')
             </if>
             <if test="categoryId != null">
-                and d.category_id = #{category_id}
+                and d.category_id = #{categoryId}
             </if>
             <if test="status != null">
                 and d.status = #{status}
