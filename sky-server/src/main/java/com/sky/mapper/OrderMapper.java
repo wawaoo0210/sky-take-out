@@ -77,7 +77,7 @@ public interface OrderMapper {
      * @return
      */
     @MapKey("")
-    List<Map<String, Object>> sumByMap(Map<String, Object> map);
+    List<Map<String, Object>> sumByMapList(Map<String, Object> map);
 
     /**
      * 根据动态条件查询订单数据
@@ -95,4 +95,6 @@ public interface OrderMapper {
      * @return
      */
     List<GoodsSalesDTO> getSalesTop(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    Double sumByMap(Map map);
 }

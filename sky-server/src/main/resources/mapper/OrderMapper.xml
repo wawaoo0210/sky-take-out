@@ -68,7 +68,7 @@
         order by order_time desc
     </select>
 
-    <select id="sumByMap" resultType="java.util.Map">
+    <select id="sumByMapList" resultType="java.util.Map">
         select
         date(order_time) as date,
         sum(amount) as amount
@@ -102,6 +102,20 @@
         </where>
     </select>
 
+    <select id="sumByMap" resultType="java.lang.Double">
+        select sum(amount) from orders
+        <where>
+            <if test="begin != null">
+                and order_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and order_time &lt; #{end}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
 
     <select id="getSalesTop" resultType="com.sky.dto.GoodsSalesDTO">
         select od.name, sum(od.number) number
