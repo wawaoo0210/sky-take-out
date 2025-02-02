@@ -1,14 +1,18 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -66,4 +70,29 @@ public interface OrderMapper {
      */
     @Select("select * from orders where status = #{status} and order_time < #{orderTimeLT}")
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime orderTimeLT);
+
+    /**
+     * 根据动态条件统计营业额数据
+     * @param map
+     * @return
+     */
+    @MapKey("")
+    List<Map<String, Object>> sumByMap(Map<String, Object> map);
+
+    /**
+     * 根据动态条件查询订单数据
+     * @param start
+     * @param end
+     * @param status
+     * @return
+     */
+    Integer countByDateAndStatus(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("status") Integer status);
+
+    /**
+     * 根据动态条件查询销量前十
+     * @param start
+     * @param end
+     * @return
+     */
+    List<GoodsSalesDTO> getSalesTop(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 }
